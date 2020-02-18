@@ -10,6 +10,19 @@ const routes = [
     name: 'Home',
     component: Home
   },
+  {
+    path: '/login',
+    name: 'login',
+    //Кастомное свойство роута
+    meta: {layout: 'empty'},
+    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
+  },
+  {
+    path: '/categories',
+    name: 'categories',
+    meta: {layout: 'main'},
+    component: () => import(/* webpackChunkName: "categories" */ '../views/Categories.vue')
+  }
 
 ]
 

@@ -4,11 +4,33 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view/>
+    <component :is="layout">
+      <router-view/>
+    </component>
+    
   </div>
 </template>
 
+<script>
+import EmptyLayout from '@/layouts/EmptyLayout'
+import MainLayout from '@/layouts/MainLayout'
+export default {
+  computed: {
+    layout() {
+      console.log(this.$route)
+      console.log( (0 || 'empty') + '-layout' )
+      return (this.$route.meta.layout || 'empty') + '-layout'
+    }
+  },
+  components: {
+    EmptyLayout, MainLayout
+  }
+}
+</script>
 <style lang="scss">
+@import '~materialize-css/dist/css/materialize.min.css';
+@import 'assets/index.css';
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
