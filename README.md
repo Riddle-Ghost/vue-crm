@@ -1,3 +1,4 @@
+https://www.youtube.com/watch?v=yE4VxlZhdFk&list=PLqKQF2ojwm3njNpksFCi8o-_c-9Vva_W0&index=9
 # vue.crm
 
 ## Project setup
