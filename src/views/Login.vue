@@ -7,27 +7,25 @@
                 id="email"
                 type="text"
                 v-model.trim="email"
-                :class="{ 'invalid': ($v.email.$dirty && $v.email.$invalid)}"
+                :class="{ 'invalid': ($v.email.$dirty && $v.email.$invalid), valid: ($v.email.$dirty && !$v.email.$invalid)}"
             >
             <label for="email">Email</label>
             <small 
-            class="helper-text invalid"
-            v-if="$v.email.$dirty && $v.email.$invalid"
+                class="helper-text invalid"
+                v-if="$v.email.$dirty && $v.email.$invalid"
             >Неверный эмейл</small>
         </div>
         <div class="input-field">
-        <input
-            id="password"
-            type="password"
-            class="validate"
-            v-model.trim="password"
-            :class="{invalid: ($v.password.$dirty && !$v.password.$minLength)}"
-        >
-        <label for="password">Пароль</label>
-        <small 
-        class="helper-text invalid"
-        v-if="$v.password.$dirty && !$v.password.$minLength"
-        >Ваш пароль слишком короток</small>
+            <input
+                type="password"
+                v-model.trim="password"
+                :class="{invalid: ($v.password.$dirty && $v.password.$invalid), valid: ($v.password.$dirty && !$v.password.$invalid)}"
+            >
+            <label for="password">Пароль</label>
+            <small 
+                class="helper-text invalid"
+                v-if="$v.password.$dirty && $v.password.$invalid"
+            >Ваш пароль слишком короток</small>
         </div>
     </div>
     <div class="card-action">
@@ -51,6 +49,7 @@
 
 <script>
 import {required, email, minLength} from 'vuelidate/lib/validators'
+import messages from '@/utils/messages'
 export default {
     data() {
         return {
@@ -61,6 +60,13 @@ export default {
     validations: {
         email: {email, required},
         password: {required, minLength: minLength(6)}
+    },
+    mounted() {
+        if(messages[this.$route.query.message]) {
+
+            this.$message(messages[this.$route.query.message])
+        }
+        
     },
     methods: {
         formSubmit() {
